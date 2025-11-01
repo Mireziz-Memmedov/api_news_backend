@@ -6,7 +6,7 @@ import requests
 app = Flask(__name__)
 
 CORS(app, resources={r"/api/news": {
-    "origins": ["https://task-news-five.vercel.app"],
+    "origins": ["https://mireziz-memmedov.github.io"],
     "methods": ["GET"]
 }})
 
