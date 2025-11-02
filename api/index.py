@@ -17,6 +17,9 @@ CORS(app, resources={r"/api/news": {
 def get_news():
     api_key = request.args.get("api_key")
 
+    if api_key is None and len(request.args) > 0:
+        return jsonify({"error": "Invalid query parametrs"})
+
     if api_key and api_key != API_KEY:
         return jsonify({"error": "Invalid api key"})
 
@@ -24,7 +27,7 @@ def get_news():
         url = f"https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey={API_KEY}"
         responce = requests.get(url)
         data = responce.json()
-        news = data.get("articles", [])
+        news = data.get("news", [])
     except Exception as e:
         news = {"error": str(e)}
 
